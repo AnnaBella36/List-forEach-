@@ -22,11 +22,13 @@ import SwiftUI
         
         var body: some View {
             NavigationView {
-                List(chats) { chat in
+               ScrollView{
+                ForEach(chats) { chat in
                     ChatRow(chat: chat)
                 }
                 .listStyle(PlainListStyle())
                 .navigationTitle("Chats")
+            }
             }
         }
     }
