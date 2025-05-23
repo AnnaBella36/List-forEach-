@@ -9,9 +9,10 @@ import SwiftUI
 
 @main
 struct ListApp: App {
+    let chats = ChatsDataSource.loadChats()
     var body: some Scene {
         WindowGroup {
-            ChatsView()
+            ChatsView(allChats: chats)
         }
     }
 }

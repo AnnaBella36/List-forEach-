@@ -7,19 +7,6 @@
 
 import SwiftUI
 
-struct Chat: Identifiable{
-    let id = UUID()
-    let name: String
-    let message: String
-    let time: String
-    let avatar: String
-    
-    var isValid: Bool {
-           !name.trimmingCharacters(in: .whitespaces).isEmpty &&
-           !message.trimmingCharacters(in: .whitespaces).isEmpty &&
-           !time.trimmingCharacters(in: .whitespaces).isEmpty
-       }
-}
 
 struct ChatRow: View{
     
