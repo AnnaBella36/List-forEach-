@@ -10,15 +10,11 @@ import SwiftUI
 struct ChatsView: View {
     
     var allChats: [Chat]
-    
-    var chats: [Chat]{
-        allChats.filter{$0.isValid}
-    }
-    
+
     var body: some View {
         
         NavigationView {
-            List(chats) { chat in
+            List(allChats) { chat in
              ChatRow(chat: chat)
                 
             }
@@ -30,6 +26,6 @@ struct ChatsView: View {
 }
 
 #Preview {
-    let chats = ChatsDataSource.loadChats()
-    ChatsView(allChats: chats)
+    let chats = ChatsDataSource()
+    ChatsView(allChats: chats.loadChats)
 }
