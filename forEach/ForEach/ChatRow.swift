@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ChatRow: View {
+    
     let chat: Chat
 
     var body: some View {

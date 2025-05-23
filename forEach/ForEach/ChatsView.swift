@@ -6,29 +6,25 @@
 //
 
 import SwiftUI
-   
-    struct ChatsView: View {
-        
-        let allChats: [Chat]
 
-        var chats: [Chat] {
-            allChats.filter {$0.isValid}
-        }
-        
-        var body: some View {
-            NavigationView {
-               ScrollView{
-                ForEach(chats) { chat in
+struct ChatsView: View {
+    
+    let allChats: [Chat]
+    
+    var body: some View {
+        NavigationView {
+            ScrollView{
+                ForEach(allChats) { chat in
                     ChatRow(chat: chat)
                 }
                 .listStyle(PlainListStyle())
                 .navigationTitle("Chats")
             }
-            }
         }
     }
+}
 
 #Preview {
-    let chats = ChatDataSource.loadChats()
-    ChatsView(allChats: chats)
+    let chats = ChatDataSource()
+    ChatsView(allChats: chats.loadChats)
 }

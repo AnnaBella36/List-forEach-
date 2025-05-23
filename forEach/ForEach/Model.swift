@@ -16,8 +16,8 @@ struct Chat: Identifiable {
     let avatar: String
     
     var isValid: Bool {
-           !name.trimmingCharacters(in: .whitespaces).isEmpty &&
-           !message.trimmingCharacters(in: .whitespaces).isEmpty &&
-           !time.trimmingCharacters(in: .whitespaces).isEmpty
-       }
+        !name.trimmingCharacters(in: .whitespaces).isEmpty &&
+        !message.trimmingCharacters(in: .whitespaces).isEmpty &&
+        !time.trimmingCharacters(in: .whitespaces).isEmpty
+    }
 }
