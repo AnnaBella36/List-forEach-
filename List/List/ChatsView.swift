@@ -10,18 +10,22 @@ import SwiftUI
 struct ChatsView: View {
     
     var allChats: [Chat]
-
+    @State private var isloaded = false
+    
     var body: some View {
         
         NavigationView {
-            List(allChats) { chat in
-             ChatRow(chat: chat)
-                
+            if !isloaded{
+                InitialView(isLoaded: $isloaded)
+            }else{
+                List(allChats) { chat in
+                    ChatRow(chat: chat)
+                    
+                }
+                .listStyle(PlainListStyle())
+                .navigationTitle("Chats")
             }
-            .listStyle(PlainListStyle())
-            .navigationTitle("Chats")
         }
-        
     }
 }
 
