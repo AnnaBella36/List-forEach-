@@ -9,7 +9,7 @@ import SwiftUI
 
 struct InitialView: View{
     
-    @Binding var isLoaded: Bool
+    var onStart: () -> Void
     
     var body: some View{
         VStack {
@@ -22,7 +22,7 @@ struct InitialView: View{
                 .font(.title2)
                 .padding(.top, 20)
             Button(action: {
-                isLoaded = true
+                onStart()
             }) {
                 Text("Start chatting")
                     .foregroundColor(.white)
@@ -38,10 +38,12 @@ struct InitialView: View{
 
 #Preview {
     struct PreviewWrapper: View {
-        @State private var isLoaded = false
+        @StateObject var vm = ChatsDataSource()
         
         var body: some View {
-            InitialView(isLoaded: $isLoaded)
+            InitialView( onStart: {
+                vm.startChatting()
+            })
         }
     }
     

@@ -8,17 +8,17 @@
 import SwiftUI
 
 struct ChatsView: View {
-    
-    var allChats: [Chat]
-    @State private var isloaded = false
+   @StateObject var viewModel = ChatsDataSource()
     
     var body: some View {
         
         NavigationView {
-            if !isloaded{
-                InitialView(isLoaded: $isloaded)
+            if !viewModel.isLoaded{
+                InitialView {
+                    viewModel.startChatting()
+                }
             }else{
-                List(allChats) { chat in
+                List(viewModel.loadChats) { chat in
                     ChatRow(chat: chat)
                     
                 }
@@ -30,6 +30,5 @@ struct ChatsView: View {
 }
 
 #Preview {
-    let chats = ChatsDataSource()
-    ChatsView(allChats: chats.loadChats)
+    ChatsView()
 }
