@@ -5,10 +5,24 @@
 //  Created by Olga Dragon on 23.05.2025.
 //
 
-import Foundation
+import SwiftUI
 
-struct ChatsDataSource {
+class ChatsDataSource: ObservableObject{
     
+    //MARK: Properties
+    @Published var isLoaded: Bool = false
+    private let isLoadedKey = "isLoaded"
+    
+    //MARK: UserDefaults
+    init(){
+        self.isLoaded = UserDefaults.standard.bool(forKey: isLoadedKey)
+    }
+    func startChatting(){
+        isLoaded = true
+        UserDefaults.standard.set(true, forKey: isLoadedKey)
+    }
+    
+    //MARK: filter data
     var loadChats: [Chat] {
         
         let allChats = [

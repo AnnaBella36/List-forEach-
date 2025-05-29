@@ -8,24 +8,27 @@
 import SwiftUI
 
 struct ChatsView: View {
+   @StateObject var viewModel = ChatsDataSource()
     
-    var allChats: [Chat]
-
     var body: some View {
         
         NavigationView {
-            List(allChats) { chat in
-             ChatRow(chat: chat)
-                
+            if !viewModel.isLoaded{
+                InitialView {
+                    viewModel.startChatting()
+                }
+            }else{
+                List(viewModel.loadChats) { chat in
+                    ChatRow(chat: chat)
+                    
+                }
+                .listStyle(PlainListStyle())
+                .navigationTitle("Chats")
             }
-            .listStyle(PlainListStyle())
-            .navigationTitle("Chats")
         }
-        
     }
 }
 
 #Preview {
-    let chats = ChatsDataSource()
-    ChatsView(allChats: chats.loadChats)
+    ChatsView()
 }
