@@ -9,20 +9,21 @@ import SwiftUI
 
 class ChatsDataSource: ObservableObject{
     
-    //MARK: Properties
-    @Published var isLoaded: Bool = false
-    private let isLoadedKey = "isLoaded"
-    
-    //MARK: UserDefaults
+    @AppStorage("isLoaded") var isLoaded: Bool = false
+    @Published var chats: [Chat] = []
+  
     init(){
-        self.isLoaded = UserDefaults.standard.bool(forKey: isLoadedKey)
-    }
-    func startChatting(){
-        isLoaded = true
-        UserDefaults.standard.set(true, forKey: isLoadedKey)
+        if isLoaded {
+            self.chats = loadChats
+        }
     }
     
-    //MARK: filter data
+    func startChatting() {
+        isLoaded = true
+        chats = loadChats
+    }
+    
+    
     var loadChats: [Chat] {
         
         let allChats = [
@@ -32,5 +33,10 @@ class ChatsDataSource: ObservableObject{
             Chat(name: "", message: "", time: "", avatar: "boy")
         ]
         return allChats.filter{$0.isValid}
+    }
+    
+   
+    func deleteChat(id chatID: UUID) {
+        chats.removeAll(where: {$0.id == chatID })
     }
 }

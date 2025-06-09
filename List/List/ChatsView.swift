@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct ChatsView: View {
-   @StateObject var viewModel = ChatsDataSource()
+    
+    @StateObject var viewModel = ChatsDataSource()
+    @State private var chatToDelete: Chat? = nil
+    @State private var showDeleteConfirmation = false
     
     var body: some View {
         
@@ -18,12 +21,30 @@ struct ChatsView: View {
                     viewModel.startChatting()
                 }
             }else{
-                List(viewModel.loadChats) { chat in
-                    ChatRow(chat: chat)
+                List{
+                    ForEach(viewModel.chats) { chat in
+                        ChatRow(chat: chat)
+                            .swipeActions(edge: .trailing) {
+                                Button(role: .cancel) {
+                                    chatToDelete = chat
+                                    showDeleteConfirmation = true
+                                } label: {
+                                    Text("Delete")
+                                }
+                                .tint(.red) 
+                            }
+                    }
                     
                 }
                 .listStyle(PlainListStyle())
                 .navigationTitle("Chats")
+                .alert("This chat will be deleted", isPresented: $showDeleteConfirmation, presenting: chatToDelete) { chat in
+                    Button("Confirm deletion", role: .destructive) {
+                        viewModel.deleteChat(id: chat.id)
+                    }
+                    Button("Cancel", role: .cancel) {}
+                }
+                
             }
         }
     }
