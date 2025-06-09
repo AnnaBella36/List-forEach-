@@ -10,6 +10,7 @@ import SwiftUI
 struct ChatDetailView: View {
     
     let chat: Chat
+    @State private var showAvatarDetail = false
     
     var body: some View {
         VStack{
@@ -30,12 +31,21 @@ struct ChatDetailView: View {
                     .font(.headline)
             }
             ToolbarItem(placement: .navigationBarTrailing) {
-                Image(chat.avatar)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 32, height: 32)
-                    .clipShape(Circle())
+                Button {
+                    showAvatarDetail = true
+                } label: {
+                    
+                    Image(chat.avatar)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 32, height: 32)
+                        .clipShape(Circle())
+                }
             }
+        }
+        .sheet(isPresented: $showAvatarDetail) {
+            AvatarDetailView(chat: chat)
+                .presentationDetents([.medium])
         }
     }
 }
