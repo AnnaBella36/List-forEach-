@@ -2,9 +2,8 @@
 //  AvatarDetailView.swift
 //  List
 //
-//  Created by Olga Dragon on 09.06.2025.
+//  Created by Olga Dragon on 11.06.2025.
 //
-
 import SwiftUI
 
 struct AvatarDetailView: View {

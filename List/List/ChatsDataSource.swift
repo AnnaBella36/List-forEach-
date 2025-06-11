@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-class ChatsDataSource: ObservableObject { 
+class ChatsDataSource: ObservableObject{
     
     @AppStorage("isLoaded") var isLoaded: Bool = false
     @Published var chats: [Chat] = []
   
-    init() {
+    init(){
         if isLoaded {
             self.chats = loadChats
         }
@@ -22,6 +22,7 @@ class ChatsDataSource: ObservableObject {
         isLoaded = true
         chats = loadChats
     }
+    
     
     var loadChats: [Chat] {
         
@@ -34,12 +35,13 @@ class ChatsDataSource: ObservableObject {
         return allChats.filter{$0.isValid}
     }
     
+   
     func deleteChat(id chatID: UUID) {
         chats.removeAll(where: {$0.id == chatID })
     }
     
     func markChatAsRead(_ chat: Chat) {
-        if let index = chats.firstIndex(where: { $0.id == chat.id}){
+        if let index = chats.firstIndex(where: { $0.id == chat.id }) {
             chats[index].isRead = true
         }
     }

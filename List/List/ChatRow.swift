@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ChatRow: View {
+struct ChatRow: View{
     
     let chat: Chat
     
@@ -18,7 +18,7 @@ struct ChatRow: View {
                 .scaledToFill()
                 .frame(width: 48, height: 48)
                 .clipShape(Circle())
-            
+
             VStack(alignment: .leading, spacing: 4) {
                 Text(chat.name)
                     .font(.headline)
@@ -28,25 +28,25 @@ struct ChatRow: View {
                     .foregroundColor(.gray)
                     .lineLimit(2)
             }
+
             Spacer()
             
             VStack(alignment: .trailing, spacing: 4) {
                 Text(chat.time)
                     .font(.caption)
                     .foregroundColor(.gray)
+                
                 if !chat.isRead {
                     Circle()
                         .fill(Color.blue)
                         .frame(width: 10, height: 10)
                 }
-            }
-            
-        }
+            }        }
         .padding()
     }
     
 }
 
 #Preview {
-    ChatRow(chat: Chat(name: "Jack", message: "what's up?", time: "11:30", avatar: "boy", isRead: false))
+    ChatRow(chat: Chat(name: "Jack", message: "what's up?", time: "11:30", avatar: "boy"))
 }
