@@ -16,14 +16,14 @@ struct ChatsView: View {
     var body: some View {
         
         NavigationView {
-            if !viewModel.isLoaded{
+            if !viewModel.isLoaded {
                 InitialView {
                     viewModel.startChatting()
                 }
             }else{
-                List{
+                List {
                     ForEach(viewModel.chats) { chat in
-                        NavigationLink(destination: ChatDetailView(chat: chat)) {
+                        NavigationLink(destination: ChatDetailView(chat: chat).environmentObject(viewModel)) {
                             ChatRow(chat: chat)
                         }
                         .swipeActions(edge: .trailing) {

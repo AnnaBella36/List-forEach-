@@ -9,12 +9,13 @@ import SwiftUI
 
 struct ChatDetailView: View {
     
+    @EnvironmentObject var viewModel: ChatsDataSource
     let chat: Chat
     @State private var showAvatarDetail = false
     
     var body: some View {
         VStack{
-            ScrollView{
+            ScrollView {
                 Text(chat.message.prefix(2000))
                     .padding()
                     .background(Color.blue.opacity(0.1))
@@ -23,6 +24,9 @@ struct ChatDetailView: View {
                     .padding()
             }
             Spacer()
+        }
+        .onAppear{
+            viewModel.markChatAsRead(chat)
         }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar{
@@ -53,6 +57,6 @@ struct ChatDetailView: View {
 #Preview {
     var chat = Chat(name: "Emily", message: "What's up? ", time: "11:00", avatar: "girl")
     NavigationView {
-        ChatDetailView(chat: chat)
+        ChatDetailView(chat: chat).environmentObject(ChatsDataSource())
     }
 }
