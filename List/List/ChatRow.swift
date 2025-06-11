@@ -30,11 +30,18 @@ struct ChatRow: View{
             }
 
             Spacer()
-
-            Text(chat.time)
-                .font(.caption)
-                .foregroundColor(.gray)
-        }
+            
+            VStack(alignment: .trailing, spacing: 4) {
+                Text(chat.time)
+                    .font(.caption)
+                    .foregroundColor(.gray)
+                
+                if !chat.isRead {
+                    Circle()
+                        .fill(Color.blue)
+                        .frame(width: 10, height: 10)
+                }
+            }        }
         .padding()
     }
     

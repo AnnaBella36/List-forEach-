@@ -23,16 +23,18 @@ struct ChatsView: View {
             }else{
                 List{
                     ForEach(viewModel.chats) { chat in
-                        ChatRow(chat: chat)
-                            .swipeActions(edge: .trailing) {
-                                Button(role: .cancel) {
-                                    chatToDelete = chat
-                                    showDeleteConfirmation = true
-                                } label: {
-                                    Text("Delete")
-                                }
-                                .tint(.red) 
+                        NavigationLink(destination: ChatDetailView(chat: chat).environmentObject(viewModel)) {
+                            ChatRow(chat: chat)
+                        }
+                        .swipeActions(edge: .trailing) {
+                            Button(role: .cancel) {
+                                chatToDelete = chat
+                                showDeleteConfirmation = true
+                            } label: {
+                                Text("Delete")
                             }
+                            .tint(.red)
+                        }
                     }
                     
                 }
