@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ChatDetailView: View {
+    
     @EnvironmentObject var viewModel: ChatsDataSource
     let chat: Chat
     @State private var showAvatarDetail = false

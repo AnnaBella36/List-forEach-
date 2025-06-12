@@ -22,7 +22,7 @@ struct ChatsView: View {
                 }
             }else{
                 List{
-                    ForEach(viewModel.chats) { chat in
+                    ForEach(viewModel.sortedChats()) { chat in
                         NavigationLink(destination: ChatDetailView(chat: chat).environmentObject(viewModel)) {
                             ChatRow(chat: chat).environmentObject(viewModel)
                         }

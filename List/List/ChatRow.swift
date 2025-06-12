@@ -45,6 +45,10 @@ struct ChatRow: View{
             }
         }
         .padding()
+        .background(viewModel.pinnedChatID == chat.id ? Color.blue.opacity(0.3) : Color.clear) 
+        .onLongPressGesture(minimumDuration: 0.3) {
+                 viewModel.togglePin(chat: chat)
+             }
     }
     
 }
