@@ -24,7 +24,7 @@ struct ChatsView: View {
                 List{
                     ForEach(viewModel.chats) { chat in
                         NavigationLink(destination: ChatDetailView(chat: chat).environmentObject(viewModel)) {
-                            ChatRow(chat: chat)
+                            ChatRow(chat: chat).environmentObject(viewModel)
                         }
                         .swipeActions(edge: .trailing) {
                             Button(role: .cancel) {

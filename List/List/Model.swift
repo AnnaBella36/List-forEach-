@@ -13,7 +13,7 @@ struct Chat: Identifiable{
     let message: String
     let time: String
     let avatar: String
-    var isRead: Bool = false
+    
     
     var isValid: Bool {
            !name.trimmingCharacters(in: .whitespaces).isEmpty &&

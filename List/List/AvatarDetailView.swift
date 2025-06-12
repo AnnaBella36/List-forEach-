@@ -29,6 +29,6 @@ struct AvatarDetailView: View {
 #Preview {
     let chat = Chat(name: "Emily", message: "What's up ?", time: "11:30", avatar: "girl2")
     NavigationView {
-        ChatDetailView(chat: chat)
+        ChatDetailView(chat: chat).environmentObject(ChatsDataSource())
     }
 }

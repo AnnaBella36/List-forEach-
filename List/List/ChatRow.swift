@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ChatRow: View{
     
+    @EnvironmentObject var viewModel: ChatsDataSource
     let chat: Chat
     
     var body: some View {
@@ -18,7 +19,7 @@ struct ChatRow: View{
                 .scaledToFill()
                 .frame(width: 48, height: 48)
                 .clipShape(Circle())
-
+            
             VStack(alignment: .leading, spacing: 4) {
                 Text(chat.name)
                     .font(.headline)
@@ -28,7 +29,7 @@ struct ChatRow: View{
                     .foregroundColor(.gray)
                     .lineLimit(2)
             }
-
+            
             Spacer()
             
             VStack(alignment: .trailing, spacing: 4) {
@@ -36,17 +37,18 @@ struct ChatRow: View{
                     .font(.caption)
                     .foregroundColor(.gray)
                 
-                if !chat.isRead {
+                if !viewModel.isChatRead(chat) {
                     Circle()
                         .fill(Color.blue)
                         .frame(width: 10, height: 10)
                 }
-            }        }
+            }
+        }
         .padding()
     }
     
 }
 
 #Preview {
-    ChatRow(chat: Chat(name: "Jack", message: "what's up?", time: "11:30", avatar: "boy"))
+    ChatRow(chat: Chat(name: "Jack", message: "what's up?", time: "11:30", avatar: "boy")).environmentObject(ChatsDataSource())
 }
