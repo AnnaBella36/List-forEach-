@@ -16,14 +16,14 @@ struct ChatsView: View {
     var body: some View {
         
         NavigationView {
-            if !viewModel.isLoaded {
+            if !viewModel.isLoaded{
                 InitialView {
                     viewModel.startChatting()
                 }
             }else{
-                List {
-                    ForEach(viewModel.chats) { chat in
-                        NavigationLink(destination: ChatDetailView(chat: chat).environmentObject(viewModel)) {
+                List{
+                    ForEach(viewModel.sortedChats) { chat in
+                        NavigationLink(destination: ChatDetailView(chat: chat)) {
                             ChatRow(chat: chat)
                         }
                         .swipeActions(edge: .trailing) {
@@ -49,6 +49,7 @@ struct ChatsView: View {
                 
             }
         }
+        .environmentObject(viewModel)
     }
 }
 

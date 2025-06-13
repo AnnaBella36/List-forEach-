@@ -2,7 +2,7 @@
 //  ChatDetailView.swift
 //  List
 //
-//  Created by Olga Dragon on 09.06.2025.
+//  Created by Olga Dragon on 11.06.2025.
 //
 
 import SwiftUI
@@ -15,7 +15,7 @@ struct ChatDetailView: View {
     
     var body: some View {
         VStack{
-            ScrollView {
+            ScrollView{
                 Text(chat.message.prefix(2000))
                     .padding()
                     .background(Color.blue.opacity(0.1))
@@ -25,9 +25,10 @@ struct ChatDetailView: View {
             }
             Spacer()
         }
-        .onAppear{
+        .onAppear {
             viewModel.markChatAsRead(chat)
         }
+      
         .navigationBarTitleDisplayMode(.inline)
         .toolbar{
             ToolbarItem(placement: .principal) {
@@ -55,8 +56,9 @@ struct ChatDetailView: View {
 }
 
 #Preview {
-    var chat = Chat(name: "Emily", message: "What's up? ", time: "11:00", avatar: "girl")
-    NavigationView {
+    let chat = Chat(name: "Emily", message: "What's up? ", time: "11:00", avatar: "girl")
+    return NavigationView {
         ChatDetailView(chat: chat).environmentObject(ChatsDataSource())
     }
 }
+
