@@ -22,9 +22,9 @@ struct ChatsView: View {
                 }
             }else{
                 List{
-                    ForEach(viewModel.sortedChats()) { chat in
-                        NavigationLink(destination: ChatDetailView(chat: chat).environmentObject(viewModel)) {
-                            ChatRow(chat: chat).environmentObject(viewModel)
+                    ForEach(viewModel.sortedChats) { chat in
+                        NavigationLink(destination: ChatDetailView(chat: chat)) {
+                            ChatRow(chat: chat)
                         }
                         .swipeActions(edge: .trailing) {
                             Button(role: .cancel) {
@@ -49,6 +49,7 @@ struct ChatsView: View {
                 
             }
         }
+        .environmentObject(viewModel)
     }
 }
 

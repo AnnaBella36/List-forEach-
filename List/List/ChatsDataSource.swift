@@ -13,25 +13,25 @@ class ChatsDataSource: ObservableObject{
     @Published var chats: [Chat] = []
     @Published var readStatus: [UUID: Bool] = [:]
     @Published var pinnedChatID: UUID? = nil
-    private var originalPosition: [UUID: Int] = [:]
+    private var originalPositions: [UUID: Int] = [:]
     
     init(){
         if isLoaded {
-            self.chats = loadChats
-            for(index, chat) in chats.enumerated(){
-                originalPosition[chat.id] = index
-            }
+            loadAndIndexChats()
         }
     }
     
     func startChatting() {
         isLoaded = true
-        chats = loadChats
-        for(index, chat) in chats.enumerated(){
-            originalPosition[chat.id] = index
-        }
+        loadAndIndexChats()
     }
     
+    private func loadAndIndexChats(){
+        self.chats = loadChats
+        for(index, chat) in chats.enumerated(){
+            originalPositions[chat.id] = index
+        }
+    }
     
     var loadChats: [Chat] {
         
@@ -62,20 +62,23 @@ class ChatsDataSource: ObservableObject{
     }
     
     func togglePin(chat: Chat) {
-        if pinnedChatID == chat.id{
-            pinnedChatID = nil
-        }else{
-            pinnedChatID = chat.id
-        }
+        objectWillChange.send()
+        pinnedChatID = pinnedChatID == chat.id ? nil : chat.id
     }
     
-    func sortedChats() -> [Chat] {
-        if let pinnedID = pinnedChatID, let pinnedChat = chats.first(where: { $0.id == pinnedID}){
-            var others = chats.filter{ $0.id != pinnedID }
-            others.sort { (originalPosition[$0.id] ?? 0) < (originalPosition[$1.id] ?? 0)}
-            return [pinnedChat] + others
+    var sortedChats: [Chat] {
+        if let pinnedID = pinnedChatID,
+           let pinnedChat = chats.first(where: { $0.id == pinnedID }) {
+            let remainingChats = chats
+                .filter { $0.id != pinnedID }
+                .sorted {
+                    (originalPositions[$0.id] ?? 0) < (originalPositions[$1.id] ?? 0)
+                }
+            return [pinnedChat] + remainingChats
         } else {
-            return chats.sorted {  (originalPosition[$0.id] ?? 0) < (originalPosition[$1.id] ?? 0)}
+            return chats.sorted {
+                (originalPositions[$0.id] ?? 0) < (originalPositions[$1.id] ?? 0)
+            }
         }
     }
 }
