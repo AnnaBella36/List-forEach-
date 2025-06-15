@@ -2,9 +2,8 @@
 //  AvatarDetailView.swift
 //  List
 //
-//  Created by Olga Dragon on 09.06.2025.
+//  Created by Olga Dragon on 11.06.2025.
 //
-
 import SwiftUI
 
 struct AvatarDetailView: View {
@@ -30,6 +29,6 @@ struct AvatarDetailView: View {
 #Preview {
     let chat = Chat(name: "Emily", message: "What's up ?", time: "11:30", avatar: "girl2")
     NavigationView {
-        ChatDetailView(chat: chat)
+        ChatDetailView(chat: chat).environmentObject(ChatsDataSource())
     }
 }
